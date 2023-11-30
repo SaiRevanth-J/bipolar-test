@@ -11,7 +11,7 @@
 
   c) In repo setting added Webhook to automate the jenkins job whenever there is new push to repo.
 
-3.Launced Jenkins-Server for CI/CD pipeline,Monitoring and Test-server for appliction deployment  :-
+3.Launced Jenkins-Server for CI/CD pipeline,Monitoring and Test-server for application deployment  :-
 
   a) In AWS jenkins-server and test-server are  launched .
 
@@ -125,11 +125,18 @@
 
  c) cAdvisor capture the metrics of docker containers in Test-server.
 
- d) Cadvisor container is up and running on test-server    54.173.163.134:8080 .
+ d) Cadvisor container is up and running on test-server at  54.173.163.134:8080 .
 
- e) Created promethus.yml file in jenkins-server and configured to scrap the metrics of test-server docker containers as below from CAdvisor.
+ e) Created prometheus.yml file in jenkins-server and configured to scrap the metrics of test-server docker containers from CAdvisor as below .
 
- f) In Jenkins-server Prometheus and grafana are launced as a docker container to stup  monitor and logging  with following commands 
+             scrape_configs:
+             - job_nam: Docker_containers
+               scrape_interval: 5s
+               static_configs:
+               - targets:
+                 - 54.173.163.134.8080
+
+ f) In Jenkins-server Prometheus and grafana are launced as a docker container to setup  monitor and logging  with following commands 
 
        1. docker volume create prometheus-data
        2. docker run -d \
@@ -145,6 +152,6 @@
 
  h) Grafana  is accessed on jenkins-server 54.145.138.148:3000 .
   
- i) Dashboard is created for Monitoring and logging of  deployed container 
+ i) Dashboard is created for Monitoring and logging of  deployed container. 
 
 
