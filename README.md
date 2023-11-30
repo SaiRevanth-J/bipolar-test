@@ -38,7 +38,7 @@
       2. sudo https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip
   h) both are unzipped and saved on required path.
 
-  i) Selenium automated test case are written as shown below complet selenium zip file is present in repo . 
+  i) Selenium automated test case are written as shown below  . 
 
         package testing.com;
 
