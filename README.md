@@ -5,8 +5,10 @@
 
 2.Created GITHUB REPO  :-
 
-  a) created Github repo :- https://github.com/SaiRevanth-J/bipolar-test.git
+  a) created Github repo :- https://github.com/SaiRevanth-J/bipolar-test.git .
+
   b) Appplication files are uploaded in the repo.
+
   c) In repo setting added Webhook to automate the jenkins job whenever there is new push to repo.
 
 3.Launced Jenkins-Server for CI/CD pipeline,Monitoring and Test-server for appliction deployment  :-
@@ -31,11 +33,14 @@
   d) Added Jenkins user to the sudeors file for sudo permissions.
     
   e) Maven is used for build application.
+
   f) Docker is used to containerize  the application .
+
   g) To execute selenium test downloaded google-chrome and chrome-driver in jenkins-server from the below link.
     
       1. sudo wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chrome-linux64.zip
       2. sudo https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip
+
   h) both are unzipped and saved on required path.
 
   i) Selenium automated test case are written as shown below  . 
