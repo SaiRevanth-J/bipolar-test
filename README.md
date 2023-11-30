@@ -32,37 +32,82 @@
     
   e) Maven is used for build application.
   f) Docker is used to containerize  the application .
-  g) Selenium automated test case are written as shown below. 
+  g) To execute selenium test downloaded google-chrome and chrome-driver in jenkins-server from the below link.
+    
+      1. sudo wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chrome-linux64.zip
+      2. sudo https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip
+  h) both are unzipped and saved on required path.
 
-        String message = driver.findElement(By.xpath("//*[contains(text(),'Hello World!')]")).getText();
+  i) Selenium automated test case are written as shown below complet selenium zip file is present in repo . 
+
+        package testing.com;
+
+         import java.io.IOException;
+
+         import org.openqa.selenium.By;
+         import org.openqa.selenium.WebDriver;
+         import org.openqa.selenium.chrome.ChromeDriver;
+         import org.openqa.selenium.chrome.ChromeOptions;
+
+
+         public class testdemo {
+	 public static void main( String[] args )throws InterruptedException, IOException {
+	
+		System.setProperty("webdriver.chrome.driver", "/var/lib/jenkins/workspace/new/chromedriver-linux64/chromedriver"); 
+		
+
+    	        ChromeOptions chromeOptions = new ChromeOptions();
+    	        chromeOptions.addArguments("--remote-allow-origins=*");
+		chromeOptions.addArguments("start-maximized");
+		chromeOptions.addArguments("--headless");
+		chromeOptions.addArguments("--no-sandbox");
+		chromeOptions.addArguments("--disable-dev-shm-usage");
+		chromeOptions.addArguments("--ignore-ssl-errors=yes");
+		chromeOptions.addArguments("--ignore-certificate-errors");
+	
+    	        chromeOptions.setBinary("/var/lib/jenkins/workspace/new/chrome-linux64/chrome");
+		
+		WebDriver driver = new ChromeDriver (chromeOptions);
+	
+		Thread.sleep(3000);
+		driver.get("http://54.173.163.134:8081");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		
+		String message = driver.findElement(By.xpath("//*[contains(text(),'Hello World!')]")).getText();
 		if(message.equals("Hello World!")) {
 			System.out.println(" Test Script Executed Successfully");
 		} else 
 		{
 			System.out.println("Script Failed");
 		}
+		
+		driver.quit();
+		
+	     }
+        }
 
 
 
-  h) Jenkins is Accessed at public ip of  jenkins-server http://54.145.138.148:8080.
+  j) Jenkins is Accessed at public ip of  jenkins-server http://54.145.138.148:8080.
 
-  i) Smtp Server is Configured in mange jenkins > system to notify the job failure through email
+  k) Smtp Server is Configured in mange jenkins > system to notify the job failure through email
 
-  j) In Manage Jenkins > Credentials , credentials  are configured for dockerhub and test-server access.
+  l) In Manage Jenkins > Credentials , credentials  are configured for dockerhub and test-server access.
 
-  k) Created Jenkins pipeline Job with webhook trigger and declarative pipeline is taken from JenkinsFile
+  m) Created Jenkins pipeline Job with webhook trigger and declarative pipeline is taken from JenkinsFile
   
-  l) Jenkinsfile is present in repo.
+  n) Jenkinsfile is present in repo.
 
-  m) Bipolar-test Pipeline Job-1 is failed intentionally to test the Email Notifications is working or not on job failure. 
+  o) Bipolar-test Pipeline Job-1 is failed intentionally to test the Email Notifications is working or not on job failure. 
   
-  n) Email notification Received successfully on job failure.
+  p) Email notification Received successfully on job failure.
   
-  o) After Rectificatin of  Error in pipeline and after a new  push, webhook triggered the job and run the pipeline successfully.
+  q) After Rectificatin of  Error in pipeline and after a new  push, webhook triggered the job and run the pipeline successfully.
 
-  q) Application is deployed on test-server and accessed on 54.173.163.134:8081 
+  r) Application is deployed on test-server and accessed on 54.173.163.134:8081 
 
-  r) Application is deployed on test-server (container name : sharp_mendeleev).
+  s) Application is deployed on test-server (container name : sharp_mendeleev).
 
 
 5. Configured Monitoring and logging  :-
