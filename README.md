@@ -113,8 +113,7 @@
   r) Application is deployed on test-server and accessed on 54.173.163.134:8081 
 
   s) Application is deployed on test-server (container name : sharp_mendeleev).
-
-
+  
 5. Configured Monitoring and logging  :-
 
  a) Deployed application container is monitored by using prometheus , grafana and cAdviser.
