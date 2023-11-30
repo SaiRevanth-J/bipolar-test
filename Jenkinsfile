@@ -1,9 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        maven "maven"
-    }
 
     stages {
         stage('Git checkout') {
@@ -16,7 +13,7 @@ pipeline {
         stage('maven build') {
               steps {
               
-                     sh "mvn install package"
+                     sh "mvnn install package"
                 }
         }
         
@@ -24,8 +21,8 @@ pipeline {
           stage('Docker build image') {
               steps {
                   
-                  sh'sudo docker system prune -af '
-                  sh 'sudo docker build -t revanthkumar9/bipolar:${BUILD_NUMBER}.0 .'
+                  sh' sudo docker system prune -af '
+                  sh ' sudo docker build -t revanthkumar9/bipolar:${BUILD_NUMBER}.0 .'
               
                 }
             }
@@ -33,39 +30,52 @@ pipeline {
         stage('Docker login and push') {
               steps {
                    withCredentials([string(credentialsId: 'docpass', variable: 'docpasswd')]) {
-                  sh 'sudo docker login -u revanthkumar9 -p ${docpasswd} '
-                  sh 'sudo docker push revanthkumar9/bipolar:${BUILD_NUMBER}.0 '
+                  sh ' sudo docker login -u revanthkumar9 -p ${docpasswd} '
+                  sh ' sudo docker push revanthkumar9/bipolar:${BUILD_NUMBER}.0 '
                   }
                 }
         }    
-
-
-        stage('Deploy') {
+        
+        stage('App deploy on test-server ') {
               steps {
-                   withCredentials([string(credentialsId: 'docpass', variable: 'docpasswd')]) {
-                  sh 'sudo docker login -u revanthkumar9 -p ${docpasswd} '
-                  sh 'sudo docker push revanthkumar9/bipolar:${BUILD_NUMBER}.0 '
-                  }
+                  withCredentials([sshUserPrivateKey(credentialsId: 'test-server', keyFileVariable: 'sshkey', passphraseVariable: 'passkey', usernameVariable: 'ubuntu')]) {
+                      
+                      sh 'ssh -o StrictHostKeyChecking=no -i ${sshkey} ${ubuntu}@172.31.35.204 sudo docker system prune -af ' 
+                       sh 'ssh -o StrictHostKeyChecking=no -i ${sshkey} ${ubuntu}@172.31.35.204 sudo docker run -dt -p 8081:8080 revanthkumar9/bipolar:${BUILD_NUMBER}.0 '
+}
                 }
-        }   
-                
+        }    
+
         stage('waitng to start the app') {
               steps {
                   
-                  sh ' sleep 40'
+                  sh ' sleep 4'
                            
                 }
             }
        
-        /*stage('Selenium test') {
+        stage('Selenium test') {
               steps {
                   
-                  sh 'sudo java -jar seleniumbank.jar'
-                  sh"echo 'application is logged in succussfully done' "
+                  sh 'sudo java -jar demotest.jar'
+                  sh"echo 'application testing  done' "
                            
                 }
-            }*/
+            }
 
         
     }
+    post {
+        
+        failure {
+            echo 'sending email notification from jenkins'
+            
+            step([$class: 'Mailer',
+      notifyEveryUnstableBuild: true,
+      recipients: emailextrecipients([[$class: 'CulpritsRecipientProvider'],
+                                      [$class: 'RequesterRecipientProvider']])])
+
+            
+       }
+    }  
 }
