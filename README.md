@@ -116,17 +116,17 @@
   
 5. Configured Monitoring and logging  :-
 
- a) Deployed application container is monitored by using prometheus , grafana and cAdviser.
+  a) Deployed application container is monitored by using prometheus , grafana and cAdviser.
 
- b) First cAadviser was started  on test-server instance to monitor the running containers  with following command.
+  b) First cAadviser was started  on test-server instance to monitor and collect metrics of the containers  with following command.
 
-         sudo docker run -d --name=cadvisor -p 8080:8080 -v /:/rootfs:ro -v /var/run:/var/run:ro -v /sys:/sys:ro -v /var/lib/docker/:/var/lib/docker:ro -v /dev/disk/:/dev/disk:ro --privileged --device=/dev/kmsg --restart=unless-stopped gcr.io/cadvisor/cadvisor
+       sudo docker run -d --name=cadvisor -p 8080:8080 -v /:/rootfs:ro -v /var/run:/var/run:ro -v /sys:/sys:ro -v /var/lib/docker/:/var/lib/docker:ro -v /dev/disk/:/dev/disk:ro --privileged --device=/dev/kmsg --restart=unless-stopped gcr.io/cadvisor/cadvisor
 
- c) cAdvisor capture the metrics of docker containers in Test-server.
+  c) cAdvisor capture the metrics of docker containers in Test-server.
 
- d) Cadvisor container is up and running on test-server at  54.173.163.134:8080 .
+  d) Cadvisor container is up and running on test-server at  54.173.163.134:8080 .
 
- e) Created prometheus.yml file in jenkins-server and configured to scrap the metrics of test-server docker containers from CAdvisor as below .
+  e) Created prometheus.yml file in jenkins-server and configured to scrap the metrics of test-server docker containers from CAdvisor as below .
 
              scrape_configs:
              - job_nam: Docker_containers
@@ -135,22 +135,22 @@
                - targets:
                  - 54.173.163.134.8080
 
- f) In Jenkins-server Prometheus and grafana are launced as a docker container to setup  monitor and logging  with following commands 
+  f) In Jenkins-server Prometheus and grafana are launced as a docker container to setup  monitor and logging  with following commands 
 
-       1. docker volume create prometheus-data
-       2. docker run -d \
+       1. sudo docker volume create prometheus-data
+       2. sudo docker run -d \
                 -p 9090:9090 \
                 -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \
                 -v prometheus-data:/prometheus \
                  prom/prometheus
 
-       3.docker run -d --name=grafana -p 3000:3000 grafana/grafana
+       3.sudo docker run -d --name=grafana -p 3000:3000 grafana/grafana
        
 
- g) Prometheus is accessed on jenkins-server 54.145.138.148:9090 .
+  g) Prometheus is accessed on jenkins-server 54.145.138.148:9090 .
 
- h) Grafana  is accessed on jenkins-server 54.145.138.148:3000 .
+  h) Grafana  is accessed on jenkins-server 54.145.138.148:3000 .
   
- i) Dashboard is created for Monitoring and logging of  deployed container. 
+  i) Dashboard is created for Monitoring and logging of  deployed container. 
 
 
