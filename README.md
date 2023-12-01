@@ -1,4 +1,4 @@
-#####Note :-  Please  Go through Bipolar-assignment.pdf in repo for clear understanding.
+#####Note :-  Please  Go through Bipolar-assignment.pdf in repo for better understanding.
 
 
 1.Created Spring boot Application of Helloworld  
