@@ -1,7 +1,7 @@
-###Note :-  Please  Go through Bipolar-assignment.pdf in repo for clear understanding.
+#####Note :-  Please  Go through Bipolar-assignment.pdf in repo for clear understanding.
 
 
-1.Created Spring boot Application of Helloworld  :-
+1.Created Spring boot Application of Helloworld  
 
 2.Created GITHUB REPO  :-
 
@@ -43,7 +43,7 @@
 
   h) both are unzipped and saved on required path.
 
-  i) Selenium automated test case are written as shown below  . 
+  i) Selenium automated test case are written and extracted as runnable jar (demotest.jar) to run automated test when application is deployed given in repo as shown below  .   . 
 
         package testing.com;
 
@@ -114,7 +114,7 @@
 
   s) Application is deployed on test-server (container name : sharp_mendeleev).
   
-5. Configured Monitoring and logging  :-
+5.Configured Monitoring and logging  :-
 
   a) Deployed application container is monitored by using prometheus , grafana and cAdviser.
 
